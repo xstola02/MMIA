@@ -104,6 +104,14 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
+
+	  for(uint8_t j = 0; j < 1000; j +=111)
+	  {
+		  sct_value(j);
+		  HAL_Delay(1000);
+	  }
+
+
   }
   /* USER CODE END 3 */
 }
