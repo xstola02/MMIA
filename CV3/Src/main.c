@@ -18,12 +18,44 @@ int main(void)
 {
 	sct_init();
 	sct_led(0x7A5C36DE);
+	for(volatile uint32_t i = 0; i < 2000000; i++)
+	{
+
+	}
 
 
     /* Loop forever */
 	for(;;)
 	{
+		for(uint16_t j = 0; j < 1000; j+= 111)
+		{
+			sct_value(j);
+			for(volatile uint32_t i = 0; i < 200000; i++)
+			{
+
+			}
+		}
 
 	}
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
