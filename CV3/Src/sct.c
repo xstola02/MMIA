@@ -20,7 +20,7 @@ void sct_led(uint32_t value)
 	{
 		sct_sdi(value & 1);
 		value >>=1;
-		sct_clk(1);
+		sct_clk(1);			//assigning value 1 to sct_clk
 		sct_clk(0);
 	}
 
@@ -39,11 +39,12 @@ void sct_init(void)
 
 }
 
-void sct_value (uint16_t value)
+void sct_value (uint16_t value) //function uses value, renders its value into segments which then displayson the board
 {
-	static const uint32_t reg_values[3][10] = {
+	static const uint32_t reg_values[3][10] =  			//translation of numbers into segments
+	{
 	 {
-	     //PCDE--------GFAB @ DIS1
+	     //PCDE--------GFAB @ DIS1					//this part tells which segments are ment to light up for specific numbers
 		 0b0111000000000111 << 16,
 		 0b0100000000000001 << 16,
 		 0b0011000000001011 << 16,
@@ -85,11 +86,11 @@ void sct_value (uint16_t value)
 
 	uint32_t reg = 0;
 
-	reg |= reg_values[0][value/100 % 10];
-	reg |= reg_values[0][value/10 % 10];
-	reg |= reg_values[0][value/1 % 10];
+	reg |= reg_values[0][value/100 % 10];		//value of the position of hundreds
+	reg |= reg_values[1][value/10 % 10];		//value of the position of tens
+	reg |= reg_values[2][value/1 % 10];			//value of the position of units
 
-	sct_led(reg);
+	sct_led(reg);			//enlisting final value into register
 }
 
 

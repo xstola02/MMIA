@@ -22,7 +22,7 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#include "sct.h"
+#include "sct.h"     //including our .h file
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -94,11 +94,11 @@ int main(void)
   MX_TIM1_Init();
   /* USER CODE BEGIN 2 */
 
-  HAL_TIM_Encoder_Start(&htim1, htim1.Channel);
+  HAL_TIM_Encoder_Start(&htim1, htim1.Channel); 		//start of our 150 counter
 
-  sct_init();
-  sct_led(0x7A5C36DE);
-  HAL_Delay(1000);
+  sct_init();											//initialisation sct_init()
+  sct_led(0x7A5C36DE);									// writing & displaying BYE on board
+  HAL_Delay(1000);										//100ms time delay
 
 
   /* USER CODE END 2 */
@@ -111,8 +111,8 @@ int main(void)
 
     /* USER CODE BEGIN 3 */
 
-	 sct_value( __HAL_TIM_GET_COUNTER(&htim1));
-	 HAL_Delay(50);
+	 sct_value(__HAL_TIM_GET_COUNTER(&htim1)); 		//showing our value on the board using the counter
+	 HAL_Delay(50);										//time delay for about 50ms
 
 
   }
