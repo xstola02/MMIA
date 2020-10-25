@@ -33,6 +33,11 @@
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
+
+#define ADC_Q 14
+
+
+
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -66,7 +71,11 @@ static void MX_ADC_Init(void);
 
 	void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef* hadc)    //volany po dobehnuti prevodu
 	{
-		raw_pot = HAL_ADC_GetValue(hadc);
+		static uint32_t avg_pot;
+
+		raw_pot = avg_pot >> ADC_Q; 		//hodnota posunuta o ADC bitu
+		avg_pot -= raw_pot;
+		avg_pot += HAL_ADC_GetValue(hadc);
 	}
 
 
