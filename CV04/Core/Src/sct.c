@@ -41,7 +41,7 @@ void sct_init(void)
 
 }
 
-void sct_value (uint16_t value,uint8_t led) //function uses value, renders its value into segments which then displayson the board
+void sct_value (uint16_t value, uint8_t led) //function uses value, renders its value into segments which then displayson the board
 {
 	static const uint32_t reg_values[4][10] =				//translation of numbers into segments
 	{
