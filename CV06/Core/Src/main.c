@@ -189,17 +189,49 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-	  /*OWConvertAll();
-	  HAL_Delay(CONVERT_T_DELAY);
-
-	  int16_t temp_18b20;
-	  OWReadTemperature(&temp_18b20);
-
-	  sct_value(temp_18b20 / 10);
+	  /*
 */
 
-	  sct_value(ntc_lookup[HAL_ADC_GetValue(&hadc)]);
-	  HAL_Delay(500);
+
+	  static enum {TEMP_NTC, TEMP_DS, WAIT} state = WAIT;
+	  static uint32_t delay;
+
+	  if(state == TEMP_NTC) 			//pri stavu NTC se nastaví led2 a vypne led1 a spustí čtení hodnot pomocí NTC
+	  	  {
+		  	HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin, GPIO_PIN_SET);
+		  	HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, GPIO_PIN_RESET);
+
+		  	sct_value(ntc_lookup[HAL_ADC_GetValue(&hadc)]);
+		  	//HAL_Delay(500);
+	  	  }
+	  else if (state == TEMP_DS) 		// pri stavu DS se nastavi led1 a vypne led2, zaroven se spusti cteni hodnot pomoci OWReadtemperature()
+	  	  {
+		  	HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin, GPIO_PIN_RESET);
+		  	HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, GPIO_PIN_SET);
+
+		  	OWConvertAll();
+		  	//HAL_Delay(CONVERT_T_DELAY);
+
+		  	int16_t temp_18b20;
+		  	OWReadTemperature(&temp_18b20);
+
+		  	sct_value(temp_18b20 / 10);
+	  	  }
+
+	  if(HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_0)==0)  //tlacitkem s1 nastav stav DS
+	  	  {
+	  		  state = TEMP_DS;
+	  		  delay = HAL_GetTick();
+
+	  	  }
+
+	  if(HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_1)==0)  //tlacitkem nastav stav NTC
+		  {
+			  state = TEMP_NTC;
+			  delay = HAL_GetTick();
+		  }
+
+	  if (HAL_GetTick() > delay + 750) state = WAIT;
   }
   /* USER CODE END 3 */
 }

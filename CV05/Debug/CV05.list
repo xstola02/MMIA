@@ -428,7 +428,7 @@ static void uart_process_command(char *cmd)
  8000382:	f003 fb77 	bl	8003a74 <puts>
 }
  8000386:	e0af      	b.n	80004e8 <uart_process_command+0x2c8>
-	else if (strcasecmp(token, "READ") == 0) 			//pokud napiseme "STATUS"
+	else if (strcasecmp(token, "READ") == 0) 			//pokud napiseme "READ" precte z adresy ulozenou hodnotu
  8000388:	4a67      	ldr	r2, [pc, #412]	; (8000528 <uart_process_command+0x308>)
  800038a:	6bbb      	ldr	r3, [r7, #56]	; 0x38
  800038c:	0011      	movs	r1, r2
@@ -477,7 +477,7 @@ static void uart_process_command(char *cmd)
  80003e2:	f003 facd 	bl	8003980 <iprintf>
 }
  80003e6:	e07f      	b.n	80004e8 <uart_process_command+0x2c8>
-	else if (strcasecmp(token, "WRITE") == 0) 			//pokud napiseme "STATUS"
+	else if (strcasecmp(token, "WRITE") == 0) 			//pokud napiseme "WRITE" zapise do pameti na urcitou adresu urcitou hodnotu
  80003e8:	4a52      	ldr	r2, [pc, #328]	; (8000534 <uart_process_command+0x314>)
  80003ea:	6bbb      	ldr	r3, [r7, #56]	; 0x38
  80003ec:	0011      	movs	r1, r2
@@ -545,7 +545,7 @@ static void uart_process_command(char *cmd)
  800046a:	d0f3      	beq.n	8000454 <uart_process_command+0x234>
 }
  800046c:	e03c      	b.n	80004e8 <uart_process_command+0x2c8>
-	else if (strcasecmp(token, "DUMP") == 0) 			//pokud napiseme "STATUS"
+	else if (strcasecmp(token, "DUMP") == 0) 			//pokud napiseme "DUMP"
  800046e:	4a32      	ldr	r2, [pc, #200]	; (8000538 <uart_process_command+0x318>)
  8000470:	6bbb      	ldr	r3, [r7, #56]	; 0x38
  8000472:	0011      	movs	r1, r2
@@ -553,7 +553,7 @@ static void uart_process_command(char *cmd)
  8000476:	f003 fb07 	bl	8003a88 <strcasecmp>
  800047a:	1e03      	subs	r3, r0, #0
  800047c:	d130      	bne.n	80004e0 <uart_process_command+0x2c0>
-			for (i = 0; i < 16; i++)
+			for (i = 0; i < 16; i++) 	//naplni pole memory postupne hodnotami a zaroven kazdou adresu vypise
  800047e:	233f      	movs	r3, #63	; 0x3f
  8000480:	18fb      	adds	r3, r7, r3
  8000482:	2200      	movs	r2, #0
@@ -592,7 +592,7 @@ static void uart_process_command(char *cmd)
  80004c2:	0011      	movs	r1, r2
  80004c4:	0018      	movs	r0, r3
  80004c6:	f003 fa5b 	bl	8003980 <iprintf>
-			for (i = 0; i < 16; i++)
+			for (i = 0; i < 16; i++) 	//naplni pole memory postupne hodnotami a zaroven kazdou adresu vypise
  80004ca:	193b      	adds	r3, r7, r4
  80004cc:	781a      	ldrb	r2, [r3, #0]
  80004ce:	193b      	adds	r3, r7, r4

@@ -745,7 +745,7 @@ int main(void)
  8000590:	f000 fa36 	bl	8000a00 <sct_value>
 	  }
 
-	  if(HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_0)==0)
+	  if(HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_0)==0) 		//prirazeni tlacitka S2 k teplote
  8000594:	4b1e      	ldr	r3, [pc, #120]	; (8000610 <main+0x170>)
  8000596:	2101      	movs	r1, #1
  8000598:	0018      	movs	r0, r3
@@ -765,7 +765,7 @@ int main(void)
 
 	  }
 
-	  if(HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_1)==0)
+	  if(HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_1)==0) 		//prirazeni tlacitka S1 k napeti
  80005b2:	4b17      	ldr	r3, [pc, #92]	; (8000610 <main+0x170>)
  80005b4:	2102      	movs	r1, #2
  80005b6:	0018      	movs	r0, r3
