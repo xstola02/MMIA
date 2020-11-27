@@ -519,7 +519,7 @@ int main(void)
  80003d8:	6019      	str	r1, [r3, #0]
  80003da:	7912      	ldrb	r2, [r2, #4]
  80003dc:	711a      	strb	r2, [r3, #4]
-  uint8_t pos = 0;
+  uint8_t poz = 0;
  80003de:	230f      	movs	r3, #15
  80003e0:	18fb      	adds	r3, r7, r3
  80003e2:	2200      	movs	r2, #0
@@ -537,7 +537,7 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-	  if(timeout > delay + timeout )
+	  if(timeout > delay + timeout )  //pokud je pri zadavani velka pauza
  80003f4:	1dbb      	adds	r3, r7, #6
  80003f6:	881a      	ldrh	r2, [r3, #0]
  80003f8:	68bb      	ldr	r3, [r7, #8]
@@ -547,7 +547,7 @@ int main(void)
  8000400:	d907      	bls.n	8000412 <main+0x62>
 	 		 	 	 {
 
-	 		 		 	 pos = 0;
+	 		 		 	 poz = 0;
  8000402:	230f      	movs	r3, #15
  8000404:	18fb      	adds	r3, r7, r3
  8000406:	2200      	movs	r2, #0
@@ -567,7 +567,7 @@ int main(void)
  8000418:	3301      	adds	r3, #1
  800041a:	d02c      	beq.n	8000476 <main+0xc6>
 	  {
-		 	 if(key == heslo[pos])
+		 	 if(key == heslo[poz]) //v pripade ze se stisknute tlacitko rovna heslu
  800041c:	4b22      	ldr	r3, [pc, #136]	; (80004a8 <main+0xf8>)
  800041e:	781b      	ldrb	r3, [r3, #0]
  8000420:	b25b      	sxtb	r3, r3
@@ -580,7 +580,7 @@ int main(void)
  800042e:	4299      	cmp	r1, r3
  8000430:	d112      	bne.n	8000458 <main+0xa8>
 				 {
-			 	 	 pos++;
+			 	 	 poz++;
  8000432:	210f      	movs	r1, #15
  8000434:	187b      	adds	r3, r7, r1
  8000436:	781a      	ldrb	r2, [r3, #0]
@@ -602,9 +602,9 @@ int main(void)
  8000454:	701a      	strb	r2, [r3, #0]
  8000456:	e00e      	b.n	8000476 <main+0xc6>
 				 }
-		 	 else
+		 	 else 						//spatne zadane heslo
 		 	 	 {
-		 		 	 pos=0;
+		 		 	 poz=0;
  8000458:	230f      	movs	r3, #15
  800045a:	18fb      	adds	r3, r7, r3
  800045c:	2200      	movs	r2, #0
@@ -624,7 +624,7 @@ int main(void)
 		 	 	 }
 
 	  }
-		 if(pos>4)
+		 if(poz>4)					//spravne zadane vsechny casti hesla
  8000476:	230f      	movs	r3, #15
  8000478:	18fb      	adds	r3, r7, r3
  800047a:	781b      	ldrb	r3, [r3, #0]
@@ -637,12 +637,12 @@ int main(void)
  8000484:	2120      	movs	r1, #32
  8000486:	0018      	movs	r0, r3
  8000488:	f000 fe20 	bl	80010cc <HAL_GPIO_TogglePin>
-			 	 pos = 0;
+			 	 poz = 0;
  800048c:	230f      	movs	r3, #15
  800048e:	18fb      	adds	r3, r7, r3
  8000490:	2200      	movs	r2, #0
  8000492:	701a      	strb	r2, [r3, #0]
-	  if(timeout > delay + timeout )
+	  if(timeout > delay + timeout )  //pokud je pri zadavani velka pauza
  8000494:	e7ae      	b.n	80003f4 <main+0x44>
  8000496:	46c0      	nop			; (mov r8, r8)
  8000498:	200000a0 	.word	0x200000a0

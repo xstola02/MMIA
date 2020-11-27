@@ -155,7 +155,7 @@ int main(void)
   /* USER CODE END 2 */
 
   const uint8_t heslo[] = {7,9,3,2,12};
-  uint8_t pos = 0;
+  uint8_t poz = 0;
   uint32_t timeout = HAL_GetTick();
   uint16_t delay = 3000;
 
@@ -168,10 +168,10 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-	  if(timeout > delay + timeout )
+	  if(timeout > delay + timeout )  //pokud je pri zadavani velka pauza
 	 		 	 	 {
 
-	 		 		 	 pos = 0;
+	 		 		 	 poz = 0;
 	 		 		 	 printf("Timeout\n");
 	 		 	 	 }
 
@@ -179,25 +179,25 @@ int main(void)
 
 	  if(key != -1)
 	  {
-		 	 if(key == heslo[pos])
+		 	 if(key == heslo[poz]) //v pripade ze se stisknute tlacitko rovna heslu
 				 {
-			 	 	 pos++;
+			 	 	 poz++;
 			 	 	 printf("Stisknuto: %d\n", key);
 			 	 	 key=-1;
 				 }
-		 	 else
+		 	 else 						//spatne zadane heslo
 		 	 	 {
-		 		 	 pos=0;
+		 		 	 poz=0;
 		 		 	 printf("Chybne zadano.\n");
 		 		 	 key=-1;
 		 		 	 timeout = HAL_GetTick();
 		 	 	 }
 
 	  }
-		 if(pos>4)
+		 if(poz>4)					//spravne zadane vsechny casti hesla
 		 	 {
 			 	 HAL_GPIO_TogglePin(LD2_GPIO_Port, LD2_Pin);
-			 	 pos = 0;
+			 	 poz = 0;
 		 	 }
 
   }
