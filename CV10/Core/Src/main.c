@@ -24,7 +24,7 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include "lwip/apps/httpd.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -301,6 +301,8 @@ void StartDefaultTask(void const * argument)
   	  tcpecho_init();
   	  /* Initialize telnet echo server */
   	  telnet_init();
+  	  /* Initialize HTTP server */
+  	  httpd_init();
 
 
   /* Infinite loop */
